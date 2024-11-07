@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="DoctorLogin" Height="450" Width="800">
     <Grid>
-        
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="289,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"><Run Language="tr-tr" Text="Username"/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Height="19" Margin="289,155,0,0" TextWrapping="Wrap" Text="Please enter your username" VerticalAlignment="Top" Width="215"/>
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="289,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135"><Run Language="tr-tr" Text="Password"/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Height="19" Margin="289,217,0,0" TextWrapping="Wrap" Text="Please enter your password" VerticalAlignment="Top" Width="215"/>
+        <Button Content="Enter" HorizontalAlignment="Left" Height="25" Margin="449,258,0,0" VerticalAlignment="Top" Width="55" Click="Enter_Click"/>
+        <Button Content="Back" HorizontalAlignment="Center" Height="25" Margin="0,258,0,0" VerticalAlignment="Top" Width="56" Click="Back_Click"/>
+
     </Grid>
 </Window>

@@ -23,5 +23,17 @@ namespace PearlDentalClinic
         {
             InitializeComponent();
         }
+
+        private void Enter_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
+        }
     }
 }

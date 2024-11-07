@@ -8,13 +8,13 @@
         Title="Pearl Dental Clinic System" Height="450" Width="800">
     <Grid>
         <Button Grid.Column="0" Grid.Row="1" Name="admin" Height="125" Width="125" VerticalAlignment="Center" 
-                HorizontalAlignment="Left" Content="Admin" Click="admin_Click"/>
+                HorizontalAlignment="Left" Margin="80" Content="Admin" Click="admin_Click"/>
 
         <Button Grid.Row="1" Grid.Column="1" Name="staff" Height="125" Width="125" VerticalAlignment="Center" 
                 HorizontalAlignment="Center" Content="Staff" Click="staff_Click"/>
 
         <Button Grid.Row="1" Grid.Column="2" Name="btn_click2" Height="125" Width="125" VerticalAlignment="Center" 
-                HorizontalAlignment="Right" Content="Doctor" Click="btn_click2_Click"/>
+                HorizontalAlignment="Right" Margin="80" Content="Doctor" Click="Doctor_Click"/>
 
         <Grid Grid.Row="0">
             <!-- Gerekirse buraya başka içerikler ekleyebilirsiniz -->

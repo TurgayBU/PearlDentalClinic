@@ -36,20 +36,24 @@ namespace PearlDentalClinic
                 Debug.WriteLine("Bağlantı hatası: " + ex.Message);
                 MessageBox.Show("Bağlantı hatası: " + ex.Message, "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            AdminLogin adminLogin = new AdminLogin();
+            adminLogin.Show();
+            this.Close();
         }
 
-        // Staff butonuna tıklama işlemi (Henüz işlevsel değil, ekleme yapılabilir)
         private void staff_Click(object sender, RoutedEventArgs e)
         {
-            // Bu butonun işlevini burada yazabilirsiniz
-            MessageBox.Show("Staff butonuna tıklandı!");
+            StaffLogin staffLogin = new StaffLogin();
+            staffLogin.Show();
+            this.Close();
         }
 
-        // Doctor butonuna tıklama işlemi (Henüz işlevsel değil, ekleme yapılabilir)
-        private void btn_click2_Click(object sender, RoutedEventArgs e)
+
+        private void Doctor_Click(object sender, RoutedEventArgs e)
         {
-            // Bu butonun işlevini burada yazabilirsiniz
-            MessageBox.Show("Doctor butonuna tıklandı!");
+            DoctorLogin doctorLogin = new DoctorLogin();
+            doctorLogin.Show();
+            this.Close();
         }
     }
 }
