@@ -30,5 +30,12 @@ namespace PearlDentalClinic
             doctorAdd.Show();
             this.Close();
         }
+
+        private void StaffAdd_Click(object sender, RoutedEventArgs e)
+        {
+            StaffAdd staffAdd = new StaffAdd();
+            staffAdd.Show();
+            this.Close();
+        }
     }
 }
