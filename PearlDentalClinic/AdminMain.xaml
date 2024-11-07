@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="AdminMain" Height="450" Width="800">
     <Grid>
-        
+        <Button Content="Doctor Add" HorizontalAlignment="Left" Margin="557,0,0,0" VerticalAlignment="Center" Click="DoctorAdd_Click" Height="32" Width="84"/>
+
+
     </Grid>
 </Window>

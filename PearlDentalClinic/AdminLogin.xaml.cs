@@ -25,7 +25,9 @@ namespace PearlDentalClinic
         }
         private void Enter_Click(object sender, RoutedEventArgs e)
         {
-
+            AdminMain adminMain = new AdminMain();
+            adminMain.Show();
+            this.Close();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

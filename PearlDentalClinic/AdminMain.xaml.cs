@@ -23,5 +23,12 @@ namespace PearlDentalClinic
         {
             InitializeComponent();
         }
+
+        private void DoctorAdd_Click(object sender, RoutedEventArgs e)
+        {
+            DoctorAdd doctorAdd = new DoctorAdd();
+            doctorAdd.Show();
+            this.Close();
+        }
     }
 }

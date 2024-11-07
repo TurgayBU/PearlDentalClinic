@@ -26,6 +26,7 @@ namespace PearlDentalClinic
 
         private void Enter_Click(object sender, RoutedEventArgs e)
         {
+           
 
         }
 
