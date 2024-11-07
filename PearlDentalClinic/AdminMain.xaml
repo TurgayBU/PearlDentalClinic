@@ -8,6 +8,9 @@
         Title="AdminMain" Height="450" Width="800">
     <Grid>
         <Button Content="Doctor Add" HorizontalAlignment="Left" Margin="557,0,0,0" VerticalAlignment="Center" Click="DoctorAdd_Click" Height="32" Width="84"/>
+        <Button Content="Staff Add" HorizontalAlignment="Left" VerticalAlignment="Center" Click="StaffAdd_Click" Height="32" Width="84" Margin="159,0,0,0"/>
+        <Button Content="Doctor Info Change" HorizontalAlignment="Left" Margin="400,0,0,0" VerticalAlignment="Center" Click="DoctorInfo_Click" Height="32" Width="114"/>
+        <Button Content="Staff Info Change" HorizontalAlignment="Left" Margin="267,0,0,0" VerticalAlignment="Center" Click="StaffInfo_Click" Height="32" Width="114"/>
 
 
     </Grid>
