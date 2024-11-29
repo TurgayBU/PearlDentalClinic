@@ -23,12 +23,12 @@ namespace PearlDentalClinic
     /// <summary>
     /// DoctorInfo.xaml etkileşim mantığı
     /// </summary>
-    public partial class DoctorInfo : Window
+    public partial class StaffInfo : Window
     {
-        public DoctorInfo()
+        public StaffInfo()
         {
             InitializeComponent();
-            LoadDoctors();
+            LoadReceptions();
         }
         // GotFocus olayı: TextBox'a odaklanıldığında Placeholder'ı gizler
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -37,11 +37,7 @@ namespace PearlDentalClinic
             {
                 // TextBox adlarına göre ilgili Placeholder'ı gizler
                 if (textBox.Name == "DoctorNameTextBox")
-                    DoctorNamePlaceholder.Visibility = Visibility.Collapsed;
-                else if (textBox.Name == "SpecTextBox")
-                    SpecTextBoxPlaceholder.Visibility = Visibility.Collapsed;
-                else if (textBox.Name == "ExperienceTextBox")
-                    ExperienceTextBoxPlaceholder.Visibility = Visibility.Collapsed;
+                    ReceptionNamePlaceholder.Visibility = Visibility.Collapsed; 
                 else if (textBox.Name == "UserTextBox")
                     UserTextBoxPlaceholder.Visibility = Visibility.Collapsed;
                 else if (textBox.Name == "PasswordTextBox")
@@ -56,20 +52,16 @@ namespace PearlDentalClinic
             {
                 // TextBox adlarına göre ilgili Placeholder'ı kontrol eder ve eğer boşsa gösterir
                 if (textBox.Name == "DoctorNameTextBox" && string.IsNullOrWhiteSpace(textBox.Text))
-                    DoctorNamePlaceholder.Visibility = Visibility.Visible;
-                else if (textBox.Name == "SpecTextBox" && string.IsNullOrWhiteSpace(textBox.Text))
-                    SpecTextBoxPlaceholder.Visibility = Visibility.Visible;
-                else if (textBox.Name == "ExperienceTextBox" && string.IsNullOrWhiteSpace(textBox.Text))
-                    ExperienceTextBoxPlaceholder.Visibility = Visibility.Visible;
+                    ReceptionNamePlaceholder.Visibility = Visibility.Visible;
                 else if (textBox.Name == "UserTextBox" && string.IsNullOrWhiteSpace(textBox.Text))
                     UserTextBoxPlaceholder.Visibility = Visibility.Visible;
                 else if (textBox.Name == "PasswordTextBox" && string.IsNullOrWhiteSpace(textBox.Text))
                     PasswordTextBoxPlaceholder.Visibility = Visibility.Visible;
             }
         }
-        private void LoadDoctors()
+        private void LoadReceptions()
         {
-            string query = "SELECT * FROM doctors"; // Veritabanındaki doktorları seçen sorgu
+            string query = "SELECT * FROM reception"; // Veritabanındaki resepsiyonları seçen sorgu
             string connectionString = ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
 
             using (var connection = new MySqlConnection(connectionString))
@@ -77,59 +69,53 @@ namespace PearlDentalClinic
             {
                 connection.Open(); // Bağlantıyı aç
                 var reader = command.ExecuteReader(); // Sorguyu çalıştırır ve sonuçları okur
-                var doctors = new List<Doctor>(); // Doktor listesini oluştur
+                var reception = new List<Reception>(); // Reception listesini oluştur
 
                 while (reader.Read()) // Her bir satırı okuduğunda tek tek sisteme eklemek için
                 {
-                    doctors.Add(new Doctor
+                    reception.Add(new Reception
                     {
                         Id = reader.GetInt32("Id"),
-                        DoctorName = reader.GetString("DoctorName"),
-                        Specialization = reader.GetString("Specialization"),
-                        Experience = reader.GetInt32("Experience"),
+                        Name = reader.GetString("Name"),
                         Username = reader.GetString("Username"),
                         Password = reader.GetString("Password")
                     });
                 }
-                DoctorsDataGrid.ItemsSource = doctors;  // DataGrid'e doktorları yükle
+                ReceptionDataGrid.ItemsSource = reception;  // DataGrid'e doktorları yükle
             }
         }
 
-        private void DoctorsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ReceptionDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DoctorsDataGrid_SelectionChanged != null)
+            if (ReceptionDataGrid.SelectedItem == null)
             {
-                Doctor secilendoktor = (Doctor)DoctorsDataGrid.SelectedItem;
-                DoctorNameTextBox.Text = secilendoktor.DoctorName;
-                SpecTextBox.Text = secilendoktor.Specialization;
-                ExperienceTextBox.Text = secilendoktor.Experience.ToString();//daha sonra bunu integer çevirmeliyiz 
-                UserTextBox.Text = secilendoktor.Username;
-                PasswordTextBox.Text = secilendoktor.Password;
+                MessageBox.Show("Please select a reception.");
+                return;
+            }
+            if (ReceptionDataGrid_SelectionChanged != null)
+            {
+                Reception secilenrep = (Reception)ReceptionDataGrid.SelectedItem;
+                ReceptionNameTextBox.Text = secilenrep.Name;
+                UserTextBox.Text = secilenrep.Username;
+                PasswordTextBox.Text = secilenrep.Password;
 
             }
         }
 
         private void SaveDoctorChange_Click(object sender, RoutedEventArgs e)
         {
-            if (DoctorsDataGrid.SelectedItem != null) // Seçili bir doktor varsa
+            if (ReceptionDataGrid.SelectedItem != null) // Seçili bir doktor varsa
             {
-                Doctor selectedDoctor = (Doctor)DoctorsDataGrid.SelectedItem; // Seçilen doktoru al
-                if (!int.TryParse(ExperienceTextBox.Text, out int experience))
-                {
-                    MessageBox.Show("Lütfen Experience alanına geçerli bir sayı giriniz.");
-                    return; // İşlemi durdur
-                }
+                Reception selectedRep = (Reception)ReceptionDataGrid.SelectedItem; // Seçilen repi al
 
                 // Güncelleme sorgusu
-                string query = "UPDATE doctors SET DoctorName = @DoctorName, Specialization = @Specialization, Experience = @Experience, Username = @Username, Password = @Password WHERE Id = @Id";//burası güncellenmeli
+                string query = "UPDATE reception SET Name = @RepName,Username = @Username, Password = @Password WHERE Id = @Id";//burası güncellenmeli
                 using (var connection = new MySqlConnection("server=localhost;database=myData;user=root;password=12345"))
                 using (var command = new MySqlCommand(query, connection))
                 {
                     // Parametreleri ekle
-                    command.Parameters.AddWithValue("@Id", selectedDoctor.Id);
-                    command.Parameters.AddWithValue("@DoctorName", DoctorNameTextBox.Text);//buralarda güncellenmeli
-                    command.Parameters.AddWithValue("@Specialization",SpecTextBox.Text);
-                    command.Parameters.AddWithValue("@Experience", experience);
+                    command.Parameters.AddWithValue("@Id", selectedRep.Id);
+                    command.Parameters.AddWithValue("@RepName", ReceptionNameTextBox.Text);//buralarda güncellenmeli
                     command.Parameters.AddWithValue("@Username", UserTextBox.Text);
                     command.Parameters.AddWithValue("@Password", PasswordTextBox.Text);
 
@@ -137,11 +123,11 @@ namespace PearlDentalClinic
                     command.ExecuteNonQuery(); // Güncelleme sorgusunu çalıştır
                 }
 
-                MessageBox.Show("Doctor updated successfully!"); // Başarılı güncelleme mesajı
+                MessageBox.Show("Reception updated successfully!"); // Başarılı güncelleme mesajı
                 //verileri kaldırdım çünkü değiştirdiğim zaman eskisini burada tekrar arıyor
-                DoctorsDataGrid.SelectionChanged -= DoctorsDataGrid_SelectionChanged;
-                LoadDoctors(); // Verileri yeniden yükle
-                DoctorsDataGrid.SelectionChanged += DoctorsDataGrid_SelectionChanged;
+                ReceptionDataGrid.SelectionChanged -= ReceptionDataGrid_SelectionChanged;
+                LoadReceptions(); // Verileri yeniden yükle
+                ReceptionDataGrid.SelectionChanged += ReceptionDataGrid_SelectionChanged;
             }
         }
 
@@ -152,20 +138,20 @@ namespace PearlDentalClinic
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (DoctorsDataGrid.SelectedItems != null)
+            if (ReceptionDataGrid.SelectedItems != null)
             {
-                Doctor selectedDoctor = (Doctor)DoctorsDataGrid.SelectedItem;
-                string query = "DELETE FROM doctors WHERE Id=@Id";
+                Reception selectedRep = (Reception)ReceptionDataGrid.SelectedItem;
+                string query = "DELETE FROM reception WHERE Id=@Id";
                 using (var connection = new MySqlConnection("server=localhost;database=myData;user=root;password=12345"))
                 using (var command = new MySqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Id",selectedDoctor.Id);
+                    command.Parameters.AddWithValue("@Id", selectedRep.Id);
                     connection.Open();
                     command.ExecuteNonQuery();
 
                 }
                 MessageBox.Show("It's succesfully deleted!");
-                LoadDoctors();
+                LoadReceptions();
 
             }
             else

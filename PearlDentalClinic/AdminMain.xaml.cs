@@ -40,6 +40,9 @@ namespace PearlDentalClinic
 
         private void StaffInfo_Click(object sender, RoutedEventArgs e)
         {
+            StaffInfo staffInfo = new StaffInfo();
+            staffInfo.Show();
+            this.Close();
 
         }
 
