@@ -113,9 +113,14 @@ namespace PearlDentalClinic
             if (DoctorsDataGrid.SelectedItem != null) // Seçili bir doktor varsa
             {
                 Doctor selectedDoctor = (Doctor)DoctorsDataGrid.SelectedItem; // Seçilen doktoru al
+                if (!int.TryParse(ExperienceTextBox.Text, out int experience))
+                {
+                    MessageBox.Show("Lütfen Experience alanına geçerli bir sayı giriniz.");
+                    return; // İşlemi durdur
+                }
 
                 // Güncelleme sorgusu
-                string query = "UPDATE doctors SET DoctorName = @DoctorName, Specialization = @Specialization, Expeirence = @Experience, Username = @Username, Password = @Password WHERE Id = @Id";//burası güncellenmeli
+                string query = "UPDATE doctors SET DoctorName = @DoctorName, Specialization = @Specialization, Experience = @Experience, Username = @Username, Password = @Password WHERE Id = @Id";//burası güncellenmeli
                 using (var connection = new MySqlConnection("server=localhost;database=myData;user=root;password=12345"))
                 using (var command = new MySqlCommand(query, connection))
                 {
@@ -123,7 +128,7 @@ namespace PearlDentalClinic
                     command.Parameters.AddWithValue("@Id", selectedDoctor.Id);
                     command.Parameters.AddWithValue("@DoctorName", DoctorNameTextBox.Text);//buralarda güncellenmeli
                     command.Parameters.AddWithValue("@Specialization",SpecTextBox.Text);
-                    command.Parameters.AddWithValue("@Experience", ExperienceTextBox);
+                    command.Parameters.AddWithValue("@Experience", experience);
                     command.Parameters.AddWithValue("@Username", UserTextBox.Text);
                     command.Parameters.AddWithValue("@Password", PasswordTextBox.Text);
 
@@ -132,8 +137,15 @@ namespace PearlDentalClinic
                 }
 
                 MessageBox.Show("Doctor updated successfully!"); // Başarılı güncelleme mesajı
-                LoadDoctors(); // Güncellenen doktorları tekrar yükle
+                DoctorsDataGrid.SelectionChanged -= DoctorsDataGrid_SelectionChanged;
+                LoadDoctors(); // Verileri yeniden yükle
+                DoctorsDataGrid.SelectionChanged += DoctorsDataGrid_SelectionChanged;
             }
+        }
+
+        private void UserTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

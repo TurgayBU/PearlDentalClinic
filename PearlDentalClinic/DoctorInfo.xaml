@@ -52,24 +52,24 @@
                 Visibility="Visible"/>
             </Grid>
             <Grid>
-                <TextBox x:Name="UserTextBox" Width="200" Margin="0,10,0,0" 
+                <TextBox x:Name="UserTextBox" Width="200" Margin="261,-72,-261,110" 
               GotFocus="TextBox_GotFocus" 
-              LostFocus="TextBox_LostFocus"/>
+              LostFocus="TextBox_LostFocus" TextChanged="UserTextBox_TextChanged"/>
                 <TextBlock x:Name="UserTextBoxPlaceholder" Text="Username" 
-                Foreground="Gray" Margin="5,15,0,0" 
+                Foreground="Gray" Margin="261,-72,-261,107" 
                 IsHitTestVisible="False" 
                 Visibility="Visible"/>
             </Grid>
             <Grid>
-                <TextBox x:Name="PasswordTextBox" Width="200" Margin="0,10,0,0" 
+                <TextBox x:Name="PasswordTextBox" Width="200" Margin="263,-99,-263,109" 
                  GotFocus="TextBox_GotFocus" 
                  LostFocus="TextBox_LostFocus"/>
                 <TextBlock x:Name="PasswordTextBoxPlaceholder" Text="Password" 
-                 Foreground="Gray" Margin="5,15,0,0" 
+                 Foreground="Gray" Margin="263,-99,-263,109" 
                  IsHitTestVisible="False" 
                  Visibility="Visible"/>
             </Grid>
-            <Button Content="Save Changes" Width="100" Click="SaveDoctorChange_Click"/>
+            <Button Margin="269,-97,-263,91" Content="Save Changes" Width="100" Click="SaveDoctorChange_Click"/>
         </StackPanel>
         
     </Grid>
