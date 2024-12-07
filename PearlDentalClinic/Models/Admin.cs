@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace PearlDentalClinic.Models
 {
-  class Reception: Person
+    class Admin: Person
     {
-        public int Id { get; set; }
         public required string Name { get; set; }
     }
 }
