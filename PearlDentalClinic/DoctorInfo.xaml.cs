@@ -25,6 +25,7 @@ namespace PearlDentalClinic
     /// </summary>
     public partial class DoctorInfo : Window
     {
+        string connectionString = ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
         public DoctorInfo()
         {
             InitializeComponent();
@@ -84,10 +85,11 @@ namespace PearlDentalClinic
                     doctors.Add(new Doctor
                     {
                         Id = reader.GetInt32("Id"),
-                        DoctorName = reader.GetString("DoctorName"),
+                        DoctorName = reader.GetString("Name"),
+                        Surname = reader.GetString("Surname"),
                         Specialization = reader.GetString("Specialization"),
-                        Experience = reader.GetInt32("Experience"),
-                        Username = reader.GetString("Username"),
+                        Experience = reader.GetString("Experience"),
+                        Username = reader.GetString("Login"),
                         Password = reader.GetString("Password")
                     });
                 }
@@ -99,12 +101,28 @@ namespace PearlDentalClinic
         {
             if (DoctorsDataGrid_SelectionChanged != null)
             {
-                Doctor secilendoktor = (Doctor)DoctorsDataGrid.SelectedItem;
-                DoctorNameTextBox.Text = secilendoktor.DoctorName;
-                SpecTextBox.Text = secilendoktor.Specialization;
-                ExperienceTextBox.Text = secilendoktor.Experience.ToString();//daha sonra bunu integer çevirmeliyiz 
-                UserTextBox.Text = secilendoktor.Username;
-                PasswordTextBox.Text = secilendoktor.Password;
+                //Doctor secilendoktor = (Doctor)DoctorsDataGrid.SelectedItem;
+
+                if (DoctorsDataGrid.SelectedItem is Doctor secilendoktor)
+                {
+                    // Populate the textboxes with the selected doctor's details
+                    DoctorNameTextBox.Text = secilendoktor.DoctorName;
+                    SurnameTextBox.Text = secilendoktor.Surname;
+                    SpecTextBox.Text = secilendoktor.Specialization;
+                    ExperienceTextBox.Text = secilendoktor.Experience.ToString(); // Assuming Experience is numeric
+                    UserTextBox.Text = secilendoktor.Username;
+                    PasswordTextBox.Text = secilendoktor.Password;
+                }
+                else
+                {
+                    // Clear the textboxes if no doctor is selected
+                    DoctorNameTextBox.Clear();
+                    SurnameTextBox.Clear();
+                    SpecTextBox.Clear();
+                    ExperienceTextBox.Clear();
+                    UserTextBox.Clear();
+                    PasswordTextBox.Clear();
+                }
 
             }
         }
@@ -122,7 +140,7 @@ namespace PearlDentalClinic
 
                 // Güncelleme sorgusu
                 string query = "UPDATE doctors SET DoctorName = @DoctorName, Specialization = @Specialization, Experience = @Experience, Username = @Username, Password = @Password WHERE Id = @Id";//burası güncellenmeli
-                using (var connection = new MySqlConnection("server=localhost;database=myData;user=root;password=12345"))
+                using (var connection = new MySqlConnection("MySqlConnection"))
                 using (var command = new MySqlCommand(query, connection))
                 {
                     // Parametreleri ekle
@@ -156,16 +174,16 @@ namespace PearlDentalClinic
             {
                 Doctor selectedDoctor = (Doctor)DoctorsDataGrid.SelectedItem;
                 string query = "DELETE FROM doctors WHERE Id=@Id";
-                using (var connection = new MySqlConnection("server=localhost;database=myData;user=root;password=12345"))
-                using (var command = new MySqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Id",selectedDoctor.Id);
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                using (var connection = new MySqlConnection(connectionString))
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Id", selectedDoctor.Id);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("It's succesfully deleted!");
+                        LoadDoctors();
 
-                }
-                MessageBox.Show("It's succesfully deleted!");
-                LoadDoctors();
+                    }
 
             }
             else

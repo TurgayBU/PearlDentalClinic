@@ -29,28 +29,25 @@ namespace PearlDentalClinic
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             string doctorname = Name.Text;
+            string surname = Surname.Text;
             string doctorspec = Spec.Text;
-            int experience;
-            if (!int.TryParse(Exp.Text, out experience))
-            {
-                MessageBox.Show("Please enter a number!");
-                return;
-            }
+            string experience = Exp.Text;
             string userna = Username.Text;
             string pass = Password.Text;
-            AddDoctorData(doctorname, doctorspec, experience, userna, pass);
+            AddDoctorData(doctorname, surname, doctorspec, experience, userna, pass);
         }
-        private void AddDoctorData(string name,string spec,int exp,string username, string sifre)
+        private void AddDoctorData(string name, string surname, string spec,string exp,string username, string sifre)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
             using (var connection = new MySqlConnection(connectionString))
                 try
             {
                 connection.Open();
-                string query = "INSERT INTO doctors(DoctorName,Specialization,Experience,Username,Password)" +
-                    "VALUES(@name,@spec,@exp,@username,@password)";
+                string query = "INSERT INTO doctors(Name,Surname,Specialization,Experience,login,Password)" +
+                    "VALUES(@name,@surname,@spec,@exp,@username,@password)";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@surname", surname);
                 cmd.Parameters.AddWithValue("@spec", spec);
                 cmd.Parameters.AddWithValue("@exp", exp);
                 cmd.Parameters.AddWithValue("@username", username);
@@ -62,7 +59,11 @@ namespace PearlDentalClinic
                 Exp.Clear();
                 Username.Clear();
                 Password.Clear();
-            }
+                connection.Close();
+                AdminMain adminMain = new AdminMain();
+                adminMain.Show();
+                this.Close();
+                }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);

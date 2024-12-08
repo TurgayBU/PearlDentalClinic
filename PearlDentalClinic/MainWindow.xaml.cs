@@ -17,25 +17,6 @@ namespace PearlDentalClinic
         private void admin_Click(object sender, RoutedEventArgs e)
         {
             // MySQL connection string'i buradan alıyoruz
-            string connectionString = ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
-
-            try
-            {
-                // MySQL bağlantısı
-                using (var connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    // Debug penceresinde bağlantı başarılı mesajı
-                    Debug.WriteLine("Bağlantı başarılı!");
-                    MessageBox.Show("Bağlantı başarılı!");
-                }
-            }
-            catch (Exception ex)
-            {
-                // Hata durumunda MessageBox ile hata mesajı göster
-                Debug.WriteLine("Bağlantı hatası: " + ex.Message);
-                MessageBox.Show("Bağlantı hatası: " + ex.Message, "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
             AdminLogin adminLogin = new AdminLogin();
             adminLogin.Show();
             this.Close();

@@ -7,19 +7,21 @@
         mc:Ignorable="d"
         Title="DoctorAdd" Height="450" Width="800">
     <Grid>
-        <TextBlock TextAlignment="Center" HorizontalAlignment="Left" Height="22" Margin="172,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"><Run Language="tr-tr" Text="Doctor Addition"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Height="17" Margin="172,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"><Run Text="Name and Surname"/><Run Text=":"/><Run Text=" "/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Height="17" Margin="172,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"><Run Language="tr-tr" Text="Specialization:"/><Run Text=" "/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Height="17" Margin="172,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"><Run Text="Experience Year"/><Run Language="tr-tr" Text=":"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Height="17" Margin="172,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"><Run Language="tr-tr" Text="Username:"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Height="17" Margin="172,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"><Run Language="tr-tr" Text="Password:"/></TextBlock>
-        <TextBox HorizontalAlignment="Left" Height="17" Margin="365,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Name="Name"/>
-        <TextBox HorizontalAlignment="Left" Height="17" Margin="365,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Name="Spec"/>
-        <TextBox HorizontalAlignment="Left" Height="17" Margin="365,169,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Name="Exp"/>
-        <TextBox HorizontalAlignment="Left" Height="17" Margin="365,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Name="Username"/>
-        <TextBox HorizontalAlignment="Left" Height="17" Margin="365,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Name="Password"/>
-        <Button Content="Add" HorizontalAlignment="Left" Height="25" Margin="530,293,0,0" VerticalAlignment="Top" Width="75" Click="Add_Click"/>
-        <Button Content="Back" HorizontalAlignment="Left" Height="25" Margin="426,293,0,0" VerticalAlignment="Top" Width="75" Click="Back_Click"/>
+        <TextBlock TextAlignment="Center" HorizontalAlignment="Left" Height="22" Margin="172,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"><Run Language="tr-tr" Text="Doctor Addition"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="17" Margin="184,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"><Run Text="Name:"/><Run Text=" "/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="184,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"><Run Language="tr-tr" Text="Specialization:"/><Run Text=" "/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="18" Margin="184,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"><Run Text="Experience Year"/><Run Language="tr-tr" Text=":"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="16" Margin="184,222,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"><Run Language="tr-tr" Text="Username:"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="16" Margin="184,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"><Run Language="tr-tr" Text="Password:"/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Height="18" Margin="378,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Name="Name"/>
+        <TextBox HorizontalAlignment="Left" Height="18" Margin="378,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Name="Spec"/>
+        <TextBox HorizontalAlignment="Left" Height="18" Margin="378,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Name="Exp"/>
+        <TextBox HorizontalAlignment="Left" Height="16" Margin="378,222,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Name="Username"/>
+        <TextBox HorizontalAlignment="Left" Height="16" Margin="378,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Name="Password"/>
+        <Button Content="Add" HorizontalAlignment="Left" Height="24" Margin="533,334,0,0" VerticalAlignment="Top" Width="75" Click="Add_Click"/>
+        <Button Content="Back" HorizontalAlignment="Left" Height="24" Margin="429,334,0,0" VerticalAlignment="Top" Width="75" Click="Back_Click"/>
+        <TextBox HorizontalAlignment="Left" Height="17" Margin="378,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" x:Name="Surname"/>
+        <TextBlock HorizontalAlignment="Left" Height="17" Margin="184,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154"><Run Text="Surname"/><Run Text=":"/><Run Text=" "/></TextBlock>
 
     </Grid>
 </Window>
