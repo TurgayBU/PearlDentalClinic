@@ -14,9 +14,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PearlDentalClinic.Models;
 
-namespace PearlDentalClinic
-{
+
+namespace PearlDentalClinic;
+
     /// <summary>
     /// DoctorLogin.xaml etkileşim mantığı
     /// </summary>
@@ -24,6 +26,7 @@ namespace PearlDentalClinic
     {
         List<string> loginList = new List<string>();
         List<string> passwordList = new List<string>();
+        List<int> IdList = new List<int>();
         public DoctorLogin()
         {
             InitializeComponent();
@@ -38,14 +41,15 @@ namespace PearlDentalClinic
                     // Debug penceresinde bağlantı başarılı mesajı
                     Debug.WriteLine("Bağlantı başarılı!");
                     MessageBox.Show("Bağlantı başarılı!");
-                    using (var command = new MySqlCommand("SELECT login, password FROM doctors", connection))
+                    using (var command = new MySqlCommand("SELECT id,login, password FROM doctors", connection))
                     {
                         // reading and saving from DB
                         using (var reader = command.ExecuteReader())
                         {
                             while (reader.Read()) {
-                                loginList.Add(reader.GetString(0));
-                                passwordList.Add(reader.GetString(1)); }
+                                IdList.Add(reader.GetInt32(0));
+                                loginList.Add(reader.GetString(1));
+                                passwordList.Add(reader.GetString(2)); }
 
                             if (loginList.Count == 0)
                             {
@@ -76,8 +80,9 @@ namespace PearlDentalClinic
                 {
                     if (Username.Text == login[i] && Password.Text == password[j] && i == j)
                     {
+                        MessageBox.Show("DoctorId: " + IdList[i]);
                         matchFound = true;
-                        DoctorAppointmentsPage _DoctorInfo = new DoctorAppointmentsPage();
+                        DoctorAppointmentsPage _DoctorInfo = new DoctorAppointmentsPage(IdList[i]);
                         _DoctorInfo.Show();
                         this.Close();
                         break;
@@ -98,4 +103,4 @@ namespace PearlDentalClinic
             this.Close();
         }
     }
-}
+
