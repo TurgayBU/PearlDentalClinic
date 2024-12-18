@@ -5,8 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PearlDentalClinic"
         mc:Ignorable="d"
-        Title="StaffMain" Height="450" Width="800">
-    <Grid>
-        
+        Title="StaffMain" Height="450" Width="944">
+    <Grid Margin="10">
+        <!-- Page Header -->
+        <TextBlock Text=" Scheduled Appointments" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,20" />
+
+        <!-- Appointment List View -->
+        <ListView x:Name="AppointmentsListView" Margin="10,50,10,100">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Patient Name" DisplayMemberBinding="{Binding PatientName}" Width="200"/>
+                    <GridViewColumn Header="Appointment Date" DisplayMemberBinding="{Binding AppointmentDate}" Width="150"/>
+                    <GridViewColumn Header="Appointment Time" DisplayMemberBinding="{Binding AppointmentTime}" Width="150"/>
+                    <GridViewColumn Header="Contact" DisplayMemberBinding="{Binding Contact}" Width="200"/>
+                    <GridViewColumn Header="Actions" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Content="Finish" Width="80" Margin="5" Click="FinishAppointment_Click"/>
+                                    <Button Content="Change" Width="80" Margin="5" Click="ChangeAppointment_Click"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Back Button -->
+        <Button Content="Back" Width="100" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,0,10,10" Click="BackButton_Click"/>
+        <Button Content="Appoıntments" Width="100" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,796,10" Click="Button_Click"/>
     </Grid>
 </Window>

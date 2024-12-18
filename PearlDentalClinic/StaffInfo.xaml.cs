@@ -107,10 +107,10 @@ namespace PearlDentalClinic
             if (ReceptionDataGrid.SelectedItem != null) // Seçili bir doktor varsa
             {
                 Reception selectedRep = (Reception)ReceptionDataGrid.SelectedItem; // Seçilen repi al
-
+                string connectionString = ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
                 // Güncelleme sorgusu
                 string query = "UPDATE reception SET Name = @RepName,Username = @Username, Password = @Password WHERE Id = @Id";//burası güncellenmeli
-                using (var connection = new MySqlConnection("server=localhost;database=myData;user=root;password=12345"))
+                using (var connection = new MySqlConnection(connectionString))
                 using (var command = new MySqlCommand(query, connection))
                 {
                     // Parametreleri ekle
@@ -142,7 +142,8 @@ namespace PearlDentalClinic
             {
                 Reception selectedRep = (Reception)ReceptionDataGrid.SelectedItem;
                 string query = "DELETE FROM reception WHERE Id=@Id";
-                using (var connection = new MySqlConnection("server=localhost;database=myData;user=root;password=12345"))
+                string connectionString = ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
+                using (var connection = new MySqlConnection(connectionString))
                 using (var command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", selectedRep.Id);

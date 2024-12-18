@@ -71,11 +71,11 @@ namespace PearlDentalClinic
                         while (reader.Read())
                         {
                             var _Doctorid = reader.GetInt32(1);
-                            var _PatientName = reader.GetString(2);
-                            var _AppointmentDate = reader.GetDateTime(3);
-                            var _AppointmentTime = reader.GetString(4);
-                            var _Contact = reader.GetString(5);
-                            var _isCompleted = reader.GetBoolean(6);
+                            var _PatientName = reader.GetString(3);
+                            var _AppointmentDate = reader.GetDateTime(4);
+                            var _AppointmentTime = reader.GetString(5);
+                            var _Contact = reader.GetString(6);
+                            var _isCompleted = reader.GetBoolean(7);
 
 
                             var __appointment = new Appointment(_Doctorid, _PatientName, _AppointmentDate, _AppointmentTime, _Contact, _isCompleted);

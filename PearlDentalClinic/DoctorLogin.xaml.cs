@@ -41,7 +41,7 @@ namespace PearlDentalClinic;
                     // Debug penceresinde bağlantı başarılı mesajı
                     Debug.WriteLine("Bağlantı başarılı!");
                     MessageBox.Show("Bağlantı başarılı!");
-                    using (var command = new MySqlCommand("SELECT id,login, password FROM doctors", connection))
+                    using (var command = new MySqlCommand("SELECT id,Username, Password FROM doctors", connection))
                     {
                         // reading and saving from DB
                         using (var reader = command.ExecuteReader())
@@ -82,7 +82,7 @@ namespace PearlDentalClinic;
                     {
                         MessageBox.Show("DoctorId: " + IdList[i]);
                         matchFound = true;
-                        DoctorAppointmentsPage _DoctorInfo = new DoctorAppointmentsPage(IdList[i]);
+                        DoctorMain _DoctorInfo = new DoctorMain(IdList[i]);
                         _DoctorInfo.Show();
                         this.Close();
                         break;

@@ -23,11 +23,13 @@ namespace PearlDentalClinic
     /// <summary>
     /// DoctorInfo.xaml etkileşim mantığı
     /// </summary>
-    public partial class DoctorInfo : Window
+    public partial class DoctorChangeInfo : Window
     {
+        private int Doctorid {  get; set; }
         string connectionString = ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
-        public DoctorInfo()
+        public DoctorChangeInfo(int _id)
         {
+            Doctorid = _id;
             InitializeComponent();
             LoadDoctors();
         }
@@ -70,12 +72,13 @@ namespace PearlDentalClinic
         }
         private void LoadDoctors()
         {
-            string query = "SELECT * FROM doctors"; // Veritabanındaki doktorları seçen sorgu
+            string query = "SELECT * FROM doctors WHERE Id=@Doctorid"; // Veritabanındaki doktorları seçen sorgu
             string connectionString = ConfigurationManager.ConnectionStrings["MySqlConnection"].ConnectionString;
 
             using (var connection = new MySqlConnection(connectionString))
             using (var command = new MySqlCommand(query, connection))
             {
+                command.Parameters.AddWithValue("@Doctorid", this.Doctorid);
                 connection.Open(); // Bağlantıyı aç
                 var reader = command.ExecuteReader(); // Sorguyu çalıştırır ve sonuçları okur
                 var doctors = new List<Doctor>(); // Doktor listesini oluştur
@@ -148,7 +151,7 @@ namespace PearlDentalClinic
                     command.Parameters.AddWithValue("@Id", selectedDoctor.Id);
                     command.Parameters.AddWithValue("@Doctorname", DoctorNameTextBox.Text);
                     command.Parameters.AddWithValue("@Surname", SurnameTextBox.Text);//buralarda güncellenmeli
-                    command.Parameters.AddWithValue("@Specialization",SpecTextBox.Text);
+                    command.Parameters.AddWithValue("@Specialization", SpecTextBox.Text);
                     command.Parameters.AddWithValue("@Experience", ExperienceTextBox.Text);
                     command.Parameters.AddWithValue("@Username", UserTextBox.Text);
                     command.Parameters.AddWithValue("@Password", PasswordTextBox.Text);
@@ -177,15 +180,15 @@ namespace PearlDentalClinic
                 Doctor selectedDoctor = (Doctor)DoctorsDataGrid.SelectedItem;
                 string query = "DELETE FROM doctors WHERE Id=@Id";
                 using (var connection = new MySqlConnection(connectionString))
-                    using (var command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Id", selectedDoctor.Id);
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        MessageBox.Show("It's succesfully deleted!");
-                        LoadDoctors();
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", selectedDoctor.Id);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("It's succesfully deleted!");
+                    LoadDoctors();
 
-                    }
+                }
 
             }
             else
